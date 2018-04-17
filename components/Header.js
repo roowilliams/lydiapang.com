@@ -11,7 +11,9 @@ const Wrapper = styled.div`
 	background-color: white;
 	height: ${props => props.minimized ? 3 : 6}rem;
 	overflow: hidden;
-	transition: all 0.3s ease-in-out;
+	transition: all 0.22s ease-in-out;
+	transition-delay: 0.2s;
+	opacity: ${props => props.minimized ? 0.9 : 1};
 `
 
 const Nav = styled.div`
@@ -26,7 +28,8 @@ const Nav = styled.div`
 		letter-spacing: 0.1em;
 		color: black;
 		padding: ${props => props.minimized ? 1 : 2}rem 0;
-		transition: padding 0.3s ease-in-out;
+		transition: padding 0.22s ease-in-out;
+		transition-delay: 0.2s;
 	}
 `
 
@@ -49,6 +52,8 @@ const Description = styled.h2`
 	margin-top: 0.2em;
 	font-weight: 100;
 	font-size: 1em;
+	opacity: ${props => props.minimized ? 0 : 1};
+	transition: opacity 0.2s ease-in-out;
 `
 
 class Header extends Component {
@@ -69,7 +74,6 @@ class Header extends Component {
 	}
 
 	updateMinimizeState(threshold) {
-		console.log('update')
 		let supportPageOffset = window.pageXOffset !== undefined
 		let scroll = {
 			x: supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft,
@@ -81,12 +85,12 @@ class Header extends Component {
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener('scroll')
+		window.removeEventListener('scroll', () => this.updateMinimizeState(this.scrollThreshhold))
 	}
 	
 	render() {
 		const { minimized } = this.state
-		console.log(minimized)
+
 		return (
 			<Wrapper className="grid" minimized={minimized} ref={node => this.headerContainer = node}>
 				<Nav className="col" minimized={minimized}>

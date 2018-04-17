@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
-import debounce from 'lodash.debounce'
+import throttle from 'lodash.throttle'
 
 
 const Wrapper = styled.div`
@@ -64,12 +64,12 @@ class Header extends Component {
 			minimized: false
 		}
 		this.scrollThreshhold = 100 // in px
-		this.debounceTime = 100 // in ms
+		this.throttleTime = 300 // in ms
 		this.updateMinimizeState = this.updateMinimizeState.bind(this)
 	}
 
 	componentDidMount() {
-		window.addEventListener('scroll', debounce(() => this.updateMinimizeState(this.scrollThreshhold), this.debounceTime))
+		window.addEventListener('scroll', throttle(() => this.updateMinimizeState(this.scrollThreshhold), this.throttleTime))
 		// window.addEventListener('scroll', () => this.updateMinimizeState(this.scrollThreshhold))
 	}
 
@@ -100,12 +100,8 @@ class Header extends Component {
 					<Link href="/work">
 							<a>Work</a>
 					</Link>
-					<Link href="http://lydiapanglydiapang.tumblr.com">
-							<a>Tumblr</a>
-					</Link>
-					<Link href="http://instagram.com/lydia_pang_">
-							<a>Instagram</a>
-					</Link>
+					<a href="http://lydiapanglydiapang.tumblr.com" target="_blank">Tumblr</a>
+					<a href="http://instagram.com/lydia_pang_" target="_blank">Instagram</a>
 				</Nav>
 
 				<Branding className="col">

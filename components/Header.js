@@ -63,7 +63,7 @@ class Header extends Component {
 		this.state = {
 			minimized: false
 		}
-		this.scrollThreshhold = 100 // in px
+		this.scrollThreshhold  = 100 // in px
 		this.throttleTime = 300 // in ms
 		this.updateMinimizeState = this.updateMinimizeState.bind(this)
 	}

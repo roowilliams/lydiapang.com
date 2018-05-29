@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Link from 'next/link'
 import styled from 'styled-components'
 import Layout from '../components/Layout'
 import setupServiceWorker from '../utils/setupServiceWorker'
@@ -7,13 +8,15 @@ import { initApi } from '../utils/prismic'
 
 
 const ProjectGallery = (props) => {
-	console.log(props)
+	// console.log(props)
 	return (
 		<div className="grid">
 			{ 
 				props.projects.map(project => {
 					return (
-						<div className="col" key={project.id}><img src={project.data.featured_image.url} alt="" /></div>
+						<div className="col" key={project.id}>
+							<Link as={project.uid ? '/project/' + project.uid : '#'} href={`/project?uid=${project.uid}`}><img src={project.data.featured_image.url} alt="" /></Link>
+						</div>
 					)
 				})
 			}
@@ -39,7 +42,8 @@ export default class Page extends Component {
 			.query(Prismic.Predicates.at('document.type', 'project'), {
 				fetch: [
 				'project.featured_image',
-				'project.title'
+				'project.title',
+				'project.uid'
 				],
 				pageSize: 6
 			})

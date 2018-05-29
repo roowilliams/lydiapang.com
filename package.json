@@ -20,7 +20,7 @@
   "scripts": {
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "dev": "next --inspect",
+    "dev": "next -p 3030",
     "build": "next build",
     "start": "next start"
   },

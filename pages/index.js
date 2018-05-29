@@ -4,6 +4,10 @@ import Prismic from 'prismic-javascript'
 import { initApi } from '../utils/prismic'
 import styled from 'styled-components'
 
+import Container from '../components/Container'
+import ColumnContainer from '../components/ColumnContainer';
+import Column from '../components/Column';
+
 
 export default class Page extends Component {
   constructor(props) {
@@ -27,27 +31,29 @@ export default class Page extends Component {
 
   render() {
     console.log(this.props.content)
-
+    const content = this.props.content[0].data
     return (
         <Layout title="Lydia Pang. Creative Director. NYC.">
-            <h1>Lydia Pang. Creative Director. NYC.</h1>
-            {this.props.content
-                ? (
-                <div>
-                    <HeroImage src={this.props.content[0].data.about_image.url} data-pin-nopin />
-                    <div className="grid">
-                        <div className="col">
-                            <Headline headline_text={this.props.content[0].data.headline} />
-                        </div>
-                        <div className="col">
-                            <BodyCopy body_text={this.props.content[0].data.body_text} />
-                            <Email address={this.props.content[0].data.email[0].text} />
-                        </div>
+            <Container>
+                <h1>Lydia Pang. Creative Director. NYC.</h1>
+                {content
+                    ? (
+                    <div>
+                        <HeroImage src={content.about_image.url} data-pin-nopin />
+                        <ColumnContainer>
+                            <Column>
+                                <Headline headlineText={content.headline} />
+                            </Column>
+                            <Column>
+                                <BodyCopy bodyText={content.body_text} />
+                                <Email address={content.email[0].text} />
+                            </Column>
+                        </ColumnContainer>
                     </div>
-                </div>
-                )
-                : <div>Loading...</div>
-            }
+                    )
+                    : <div>Loading...</div>
+                }
+            </Container>
         </Layout>
     )
   }
@@ -57,9 +63,9 @@ const HeroImage = styled.img`
     width: 100%;
 `
 
-const Copy = props => (
-    <div className={props.className}>
-        {props.body_text.map((paragraph, i) => (<p key={i}>{paragraph.text}</p>))}
+const Copy = ({bodyText, className}) => (
+    <div className={className}>
+        { bodyText.map((paragraph, i) => <p key={'body-para-'+i}>{paragraph.text}</p>) }
     </div>
 )
 
@@ -76,9 +82,9 @@ const BodyCopy = styled(Copy)`
     }
 `
 
-const Headline = props => (
+const Headline = ({headlineText}) => (
     <div>
-        {props.headline_text.map((paragraph, i) => (<Paragraph key={i}>{paragraph.text}</Paragraph>))}
+        {headlineText.map((paragraph, i) => (<Paragraph key={'headline-para-'+i}>{paragraph.text}</Paragraph>))}
     </div>
 )
 

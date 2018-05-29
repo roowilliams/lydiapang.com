@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
+import { media } from '../utils/styled-utils'
 import throttle from 'lodash.throttle'
 
 
 const Wrapper = styled.div`
+	transition: all 0.2s ease-in-out;
+	display: flex;
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -14,6 +17,8 @@ const Wrapper = styled.div`
 	transition: all 0.22s ease-in-out;
 	transition-delay: 0.2s;
 	opacity: ${props => props.minimized ? 0.9 : 1};
+	flex-direction: row-reverse;
+	${media.desktop`flex-direction: row;`}
 `
 
 const Nav = styled.div`
@@ -39,14 +44,25 @@ const Branding = styled.div`
 	justify-content: space-around;
 	flex-direction: column;
 	margin-right: 2.6rem;
-	text-align: right;
+	text-align: left;
+	${media.desktop`
+		text-align: right;
+	`}
+	
 `
 
 const Name = styled.h1`
+	transition: all 0.2s ease-in-out;
 	margin: 0;
 	padding: 2rem 0 0;
 	margin-bottom: 0.2em;
+
+	${media.desktop`
+
+
+	`}
 `
+
 
 const Description = styled.h2`
 	margin-top: 0.2em;
@@ -92,7 +108,7 @@ class Header extends Component {
 		const { minimized } = this.state
 
 		return (
-			<Wrapper className="grid" minimized={minimized} ref={node => this.headerContainer = node}>
+			<Wrapper minimized={minimized} ref={node => this.headerContainer = node}>
 				<Nav className="col" minimized={minimized}>
 					<Link href="/">
 							<a>About</a>

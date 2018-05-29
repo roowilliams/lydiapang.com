@@ -1,6 +1,11 @@
+import styled from 'styled-components'
 import Head from 'next/head'
 import Header from './Header'
 
+
+const Content = styled.div`
+	margin-top: 6rem;
+`
 export default ({
   children,
   title = 'This is the default title',
@@ -35,9 +40,9 @@ export default ({
 		</Head>
 		<div>
 			<Header />
-			<div className="container">
+			<Content>
 				{children}
-			</div>
+			</Content>
 		</div>
 	</div>
 )

@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 import setupServiceWorker from '../utils/setupServiceWorker'
 import Prismic from 'prismic-javascript'
 import { initApi } from '../utils/prismic'
+import ImageGallery from '../components/ImageGallery'
 
 export default class Page extends Component {
 	constructor(props) {
@@ -48,10 +49,11 @@ export default class Page extends Component {
 	render() {
 		console.log(this.props.content)
 		const content = this.props.content.data
-		const featured_image = content.featured_image
 		const title = content.title[0].text
 		const role = content.role
 		const description = content.description[0].text
+		const { featured_image, image_gallery, additional_images, image_carousel } = content
+		
 
 		return (
 			<Layout title="Lydia Pang. Work.">
@@ -62,7 +64,7 @@ export default class Page extends Component {
 						{ title && <Title>{title}</Title> }
 						{ description && <Description>{description}</Description> }
 						{ featured_image && <FeaturedImage src={featured_image.url} /> }
-								
+						{ image_gallery && <ImageGallery images={image_gallery} />}
 					</div>
 				
 					: <div>Loading...</div>

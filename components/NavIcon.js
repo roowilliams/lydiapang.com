@@ -7,7 +7,9 @@ const Wrapper = styled.div`
     width: 2rem;
     height: 1.4rem;
     cursor: pointer;
-    margin 1rem;
+    margin 0.8rem 1rem;
+    z-index: 101;
+    ${media.desktop`display: none;`}
 `
 
 const TopBar = styled.div`
@@ -18,6 +20,7 @@ const TopBar = styled.div`
     transition: all 0.2s ease-in-out;
     ${props => props.clicked ? `transform: translate(0, 0.6rem) rotate(45deg);` : null}
     background-color: ${props => props.color ? props.color : `black`};
+    ${props => props.clicked ? `background-color: white;` : null}
 `
 
 const MiddleBar = styled.div`
@@ -27,8 +30,8 @@ const MiddleBar = styled.div`
     top: calc(50% - 1px);
     transition: all 0.2s ease-in-out;
     ${props => props.clicked ? `transform: scaleX(0);` : null}
-    ${props => props.clicked ? `opacity: 0;` : `opacity: 1;`}
     background-color: ${props => props.color ? props.color : `black`};
+    ${props => props.clicked ? `background-color: white;` : null}
 `
 
 const BottomBar = styled.div`
@@ -38,7 +41,8 @@ const BottomBar = styled.div`
     bottom: 0;
     transition: all 0.2s ease-in-out;
     ${props => props.clicked ? `transform: translate(0, -0.6rem) rotate(-45deg);` : null}
-    background-color: ${props => props.color ? props.color : `black`}
+    background-color: ${props => props.color ? props.color : `black`};
+    ${props => props.clicked ? `background-color: white;` : null}
 `
 
 const NavIcon = ({clicked, color, onClick}) => (

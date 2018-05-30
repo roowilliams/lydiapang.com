@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { media } from '../utils/styled-utils'
 import throttle from 'lodash.throttle'
 
+import NavIcon from '../components/NavIcon'
+
 
 const Wrapper = styled.div`
 	transition: all 0.2s ease-in-out;
@@ -25,6 +27,8 @@ const Nav = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-around;
+	flex: 1;
+	margin: 0 1rem 0;
 
 	a {
 		font-family: 'Roboto', sans-serif;
@@ -45,6 +49,8 @@ const Branding = styled.div`
 	flex-direction: column;
 	margin-right: 2.6rem;
 	text-align: left;
+	flex: 1;
+	margin: 0 1rem 0;
 	${media.desktop`
 		text-align: right;
 	`}
@@ -72,16 +78,19 @@ const Description = styled.h2`
 	transition: opacity 0.2s ease-in-out;
 `
 
+
 class Header extends Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
-			minimized: false
+			minimized: false,
+			navOpen: false
 		}
 		this.scrollThreshhold  = 100 // in px
 		this.throttleTime = 300 // in ms
 		this.updateMinimizeState = this.updateMinimizeState.bind(this)
+		this.updateNavState = this.updateNavState.bind(this)
 	}
 
 	componentDidMount() {
@@ -100,16 +109,22 @@ class Header extends Component {
 		else this.setState({ minimized: false })
 	}
 
+	updateNavState() {
+		console.log('updateNavState', this.state.navOpen)
+		this.setState({navOpen: !this.state.navOpen})
+	}
+
 	componentWillUnmount() {
 		window.removeEventListener('scroll', () => this.updateMinimizeState(this.scrollThreshhold))
 	}
 	
 	render() {
-		const { minimized } = this.state
-
+		const { minimized, navOpen } = this.state
+		console.log(this.state)
 		return (
 			<Wrapper minimized={minimized} ref={node => this.headerContainer = node}>
-				<Nav className="col" minimized={minimized}>
+				<NavIcon color="rgb(255,40,40)" clicked={navOpen} onClick={this.updateNavState}/>
+				<Nav minimized={minimized}>
 					<Link href="/">
 							<a>About</a>
 					</Link>
@@ -120,7 +135,7 @@ class Header extends Component {
 					<a href="http://instagram.com/lydia_pang_" target="_blank">Instagram</a>
 				</Nav>
 
-				<Branding className="col">
+				<Branding>
 					<Name>Lydia Pang</Name>
 					<Description minimized={minimized}>Creative Director</Description>
 				</Branding>

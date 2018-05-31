@@ -163,7 +163,6 @@ class Header extends Component {
 	}
 
 	updateNavState() {
-		console.log('updateNavState', this.state.navOpen)
 		this.setState({navOpen: !this.state.navOpen})
 	}
 
@@ -173,7 +172,6 @@ class Header extends Component {
 	
 	render() {
 		const { minimized, navOpen } = this.state
-		console.log(this.state)
 		return (
 			<Wrapper minimized={minimized} ref={node => this.headerContainer = node}>
 				<HeaderContainer>

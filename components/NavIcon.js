@@ -7,7 +7,7 @@ const Wrapper = styled.div`
     width: 2rem;
     height: 1.4rem;
     cursor: pointer;
-    margin 0.8rem 1rem;
+    // margin 0.8rem 1rem;
     z-index: 101;
     ${media.desktop`display: none;`}
 `

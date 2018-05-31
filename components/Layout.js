@@ -4,7 +4,6 @@ import Header from './Header'
 
 
 const Content = styled.div`
-	margin-top: 6rem;
 `
 export default ({
   children,

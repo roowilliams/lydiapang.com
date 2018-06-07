@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import Link from 'next/link'
 import styled from 'styled-components'
 import { media } from '../utils/styled-utils'
 import throttle from 'lodash.throttle'
 
 import Container from '../components/Container'
 import NavIcon from '../components/NavIcon'
-
+import Nav from '../components/Nav'
 
 const Wrapper = styled.div`
 	display: flex;
@@ -22,74 +21,7 @@ const Wrapper = styled.div`
 	${media.desktop`flex-direction: row;`}
 `
 
-const Nav = styled.ul`
-	position: absolute;
-	top: ${props => props.mobileNavOpen ? 0 : `-100vh`};
-	opacity: ${props => props.mobileNavOpen ? 1 : `0`};
-	transition: all 0.2s ease-in-out;
-	list-style: none;
-	width: 110%;
-	margin: 0 10%;
-	padding: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	position: absolute;
-	height: 100vh;
-	background: black;
 
-	${media.desktop`
-		opacity: 1;
-		height: auto;
-		z-index: 102;
-		// position: relative;
-		top: 0;
-		flex-direction: row;
-		flex-grow: 1;
-		width: 40%;
-		align-items: flex-start;
-		justify-content: space-around;
-		margin: 0 1rem 0;
-		background: transparent;
-	`}
-`
-
-const NavItem = styled.li`
-	list-style: none;
-	font-size: 1.8rem;
-	line-height: 2;
-	opacity: ${props => props.mobileNavOpen ? 1 : `0`};
-	transition: all 0.2s ease-in-out 0.2s;
-
-	a {
-		text-decoration: none;
-		color: white;
-		cursor: pointer;
-		display: block
-		transition: all 0.1s ease-in-out;
-
-		&:hover {
-			transform: scale(1.1);
-		}
-	}
-
-	${media.desktop`
-		opacity: 1;
-		padding: ${props => props.minimized ? 1 : 2}rem 0;
-		transition: padding 0.22s ease-in-out 0.2s;
-		font-family: 'Roboto', sans-serif;
-		font-size: 1rem;
-		line-height: 1;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		color: black;
-		a {
-			color: black;
-		}
-	`}
-
-`
 
 const Branding = styled.div`
 	width: 100%;
@@ -103,7 +35,6 @@ const Branding = styled.div`
 	${media.desktop`
 		text-align: right;
 	`}
-	
 `
 
 const Name = styled.h1`
@@ -176,12 +107,7 @@ class Header extends Component {
 			<Wrapper minimized={minimized} ref={node => this.headerContainer = node}>
 				<HeaderContainer>
 					<NavIcon color="rgb(0,0,0)" clicked={navOpen} onClick={this.updateNavState}/>
-					<Nav minimized={minimized} mobileNavOpen={navOpen}>
-						<NavItem minimized={minimized} mobileNavOpen={navOpen}><Link href="/"><a>About</a></Link></NavItem>
-						<NavItem minimized={minimized} mobileNavOpen={navOpen}><Link href="/work"><a>Work</a></Link></NavItem>
-						<NavItem minimized={minimized} mobileNavOpen={navOpen}><a href="http://lydiapanglydiapang.tumblr.com" target="_blank">Tumblr</a></NavItem>
-						<NavItem minimized={minimized} mobileNavOpen={navOpen}><a href="http://instagram.com/lydia_pang_" target="_blank">Instagram</a></NavItem>
-					</Nav>
+					<Nav minimized={minimized} mobileNavOpen={navOpen} />
 
 					<Branding>
 						<Name minimized={minimized}>Lydia Pang</Name>

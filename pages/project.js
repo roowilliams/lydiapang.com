@@ -4,7 +4,10 @@ import Layout from '../components/Layout'
 import setupServiceWorker from '../utils/setupServiceWorker'
 import Prismic from 'prismic-javascript'
 import { initApi } from '../utils/prismic'
+
 import ImageGallery from '../components/ImageGallery'
+import ImageSlider from '../components/ImageSlider'
+import Container from '../components/Container'
 
 export default class Page extends Component {
 	constructor(props) {
@@ -49,23 +52,24 @@ export default class Page extends Component {
 	render() {
 		console.log(this.props.content)
 		const content = this.props.content.data
-		const title = content.title[0].text
+		const title = content.title[0] && content.title[0].text
 		const role = content.role
-		const description = content.description[0].text
-		const { featured_image, image_gallery, additional_images, image_carousel } = content
+		const description = content.description[0] && content.description[0].text
+		const { featured_image, image_gallery, additional_images, image_slider } = content
 		
 
 		return (
 			<Layout title="Lydia Pang. Work.">
-				<h1>Work</h1>
+
 				{content
 					?	
-					<div className="container">
+					<Container>
 						{ title && <Title>{title}</Title> }
 						{ description && <Description>{description}</Description> }
-						{ featured_image && <FeaturedImage src={featured_image.url} /> }
+						{/* { featured_image && <FeaturedImage src={featured_image.url} dimensions={featured_image.dimensions} /> } */}
 						{ image_gallery && <ImageGallery images={image_gallery} />}
-					</div>
+						{ image_slider && <ImageSlider images={image_slider} />}
+					</Container>
 				
 					: <div>Loading...</div>
 				}
@@ -75,10 +79,12 @@ export default class Page extends Component {
 }
 
 const FeaturedImage = styled.img`
+	align-self: center;
 `
 
 const Title = styled.h1`
 `
 
 const Description = styled.div`
+	margin-bottom: 3rem;
 `

@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const ImageGallery = ({images}) => {
-    console.log(images)
+
     const grid = images.map((image, i) => {
-        console.log(image.image)
         return <Image key={'image-'+i} src={image.image.url} />
     }) 
     return (
@@ -22,6 +21,7 @@ const Container = styled.div`
 const Image = styled.img`
     align-self: center;
     flex: 0 0 auto;
+    max-width: 100%;
 `
 
 export default ImageGallery

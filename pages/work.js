@@ -6,6 +6,7 @@ import setupServiceWorker from '../utils/setupServiceWorker'
 import Prismic from 'prismic-javascript'
 import { initApi } from '../utils/prismic'
 
+import Container from '../components/Container'
 import ProjectList from '../components/ProjectList'
 
 
@@ -48,12 +49,14 @@ export default class Page extends Component {
 
 		return (
 			<Layout title="Lydia Pang. Work.">
-				<h1>Work</h1>
-				{this.props.content
-					?	<ProjectList projects={projects} />
+				<Container>
+					<h1>Work</h1>
+					{this.props.content
+						?	<ProjectList projects={projects} />
 
-					:	<div>Loading...</div>
-				}
+						:	<div>Loading...</div>
+					}
+				</Container>
 			</Layout>
 			)
 	}

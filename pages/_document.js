@@ -25,6 +25,7 @@ injectGlobal`
         line-height: 1.5;
         color: rgb(30,30,30)
     }
+    
 `
 
 

@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { media } from '../utils/styled-utils'
 
-const ImageGallery = ({images}) => {
-
+const ImageGallery = ({images, columns}) => {
+    console.log('columns', columns)
     const grid = images.map((image, i) => {
-        return <Image key={'image-'+i} src={image.image.url} />
-    }) 
+        return (
+            <ImageContainer key={'image-'+i} columns={columns}>
+                <Image  src={image.image.url}/>
+            </ImageContainer>
+        )
+    })
     return (
         <Container>
             { grid }
@@ -15,12 +20,17 @@ const ImageGallery = ({images}) => {
 
 const Container = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+`
+
+const ImageContainer = styled.div`
+    align-self: center;
+    ${media.tablet`width: ${props => props.columns ? '48%' : '100%' };`}
 `
 
 const Image = styled.img`
-    align-self: center;
-    flex: 0 0 auto;
     max-width: 100%;
 `
 

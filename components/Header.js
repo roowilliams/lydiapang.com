@@ -18,6 +18,7 @@ const Wrapper = styled.div`
 	transition: all 0.22s ease-in-out 0.2s;
 	opacity: ${props => props.minimized ? 0.9 : 1};
 	flex-direction: row-reverse;
+	z-index: 101;
 	${media.desktop`flex-direction: row;`}
 `
 

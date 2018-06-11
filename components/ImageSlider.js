@@ -50,6 +50,8 @@ class ImageSlider extends Component {
 const Container = styled.div`
     position: relative;
     width: 100%;
+    background: black;
+    
 `
 
 const Slide = styled.div`
@@ -58,6 +60,7 @@ const Slide = styled.div`
     left: 0;
     opacity: ${props => props.visible ? 1 : 0};
     transition: all 0.4s ease-in-out;
+    margin-bottom: 2rem;
 `
 const Image = styled.img`
     align-self: center;

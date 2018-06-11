@@ -55,6 +55,7 @@ export default class Page extends Component {
 		const title = content.title[0] && content.title[0].text
 		const role = content.role
 		const description = content.description[0] && content.description[0].text
+		const gallery_columns = content.gallery_columns === 'Yes' ? true : false
 		const { featured_image, image_gallery, additional_images, image_slider } = content
 		
 
@@ -67,7 +68,7 @@ export default class Page extends Component {
 						{ title && <Title>{title}</Title> }
 						{ description && <Description>{description}</Description> }
 						{/* { featured_image && <FeaturedImage src={featured_image.url} dimensions={featured_image.dimensions} /> } */}
-						{ image_gallery && <ImageGallery images={image_gallery} />}
+						{ image_gallery && <ImageGallery images={image_gallery} columns={gallery_columns} />}
 						{ image_slider && <ImageSlider images={image_slider} />}
 					</Container>
 				

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Link from 'next/link'
 import styled from 'styled-components'
 import { media } from '../utils/styled-utils'
 import throttle from 'lodash.throttle'
@@ -44,6 +45,7 @@ const Name = styled.h1`
 	padding: 0;
 	position: relative;
 	margin-top: ${props => props.minimized ? 1.9 : 0}rem;
+	cursor: pointer;
 	${media.desktop`
 
 
@@ -72,15 +74,21 @@ class Header extends Component {
 			minimized: false,
 			navOpen: false
 		}
-		this.scrollThreshhold  = 100 // in px
+		this.scrollThreshhold = 100 // in px
 		this.throttleTime = 300 // in ms
 		this.updateMinimizeState = this.updateMinimizeState.bind(this)
 		this.updateNavState = this.updateNavState.bind(this)
+		this.onScroll = this.onScroll.bind(this)
+		this.throttle = throttle(this.updateMinimizeState, this.throttleTime)
 	}
 
 	componentDidMount() {
-		window.addEventListener('scroll', throttle(() => this.updateMinimizeState(this.scrollThreshhold), this.throttleTime))
+		window.addEventListener('scroll', this.onScroll, false)
 		// window.addEventListener('scroll', () => this.updateMinimizeState(this.scrollThreshhold))
+	}
+
+	onScroll() {
+		this.throttle(this.scrollThreshhold)
 	}
 
 	updateMinimizeState(threshold) {
@@ -99,7 +107,7 @@ class Header extends Component {
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener('scroll', () => this.updateMinimizeState(this.scrollThreshhold))
+		window.removeEventListener('scroll', this.onScroll, false)
 	}
 	
 	render() {
@@ -111,7 +119,7 @@ class Header extends Component {
 					<Nav minimized={minimized} mobileNavOpen={navOpen} />
 
 					<Branding>
-						<Name minimized={minimized}>Lydia Pang</Name>
+						<Link href="/"><Name minimized={minimized}>Lydia Pang</Name></Link>
 						<Description minimized={minimized}>Creative Director</Description>
 					</Branding>
 				</HeaderContainer>

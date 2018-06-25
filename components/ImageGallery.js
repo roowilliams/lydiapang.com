@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { media } from '../utils/styled-utils'
 
 const ImageGallery = ({images, columns}) => {
-    console.log('columns', columns)
     const grid = images.map((image, i) => {
         return (
             <ImageContainer key={'image-'+i} columns={columns}>
@@ -27,6 +26,7 @@ const Container = styled.div`
 
 const ImageContainer = styled.div`
     align-self: center;
+    margin: 0 auto;
     ${media.tablet`width: ${props => props.columns ? '48%' : '100%' };`}
 `
 
